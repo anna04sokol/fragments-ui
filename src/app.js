@@ -1,5 +1,5 @@
 // src/app.js
-
+import { getUserFragments } from './api';
 import { signIn, getUser } from './auth';
 
 async function init() {
@@ -18,6 +18,9 @@ async function init() {
   if (!user) {
     return;
   }
+
+    // Do an authenticated request to the fragments API server and log the result
+  const userFragments = await getUserFragments(user);
 
   // Update the UI to welcome the user
   userSection.hidden = false;
