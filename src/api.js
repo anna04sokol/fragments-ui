@@ -1,5 +1,6 @@
 // src/api.js
 
+
 // fragments microservice API to use, defaults to localhost:8080 if not set in env
 const apiUrl = process.env.API_URL || 'http://localhost:8080';
 
@@ -26,5 +27,24 @@ export async function getUserFragments(user) {
     return data;
   } catch (err) {
     console.error('Unable to call GET /v1/fragment', { err });
+  }
+}
+
+export async function createFragment(user, content) {
+  try {
+    const res = await fetch(`${apiUrl}/v1/fragments`, {
+      method: 'POST',
+      headers: user.authorizationHeaders('text/plain'),
+      body: content
+    });
+    if (!res.ok) {
+      throw new Error(`${res.status} ${res.statusText}`);
+    }
+    
+    const data = await res.json();
+    return { data, location: res.headers.get('location') };
+  } catch (err) {
+    console.error('Unable to create a new fragment', { err });
+    throw err;
   }
 }

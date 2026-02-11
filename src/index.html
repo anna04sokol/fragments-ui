@@ -2,11 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fragments UI</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
     />
+    <link rel="stylesheet" href="style.css" />
     <script type="module" src="./app.js"></script>
   </head>
   <body>
@@ -16,8 +18,19 @@
         <button id="login">Login</button>
       </nav>
     </section>
+
     <section hidden id="user">
       <h2>Welcome <span class="username"></span>!</h2>
+    </section>
+
+    <section hidden id="create-fragment">
+      <h3>Create a New Fragment</h3>
+      <form id="fragmentForm">
+        <label for="fragmentInput">Enter your fragment:</label><br />
+        <textarea id="fragmentInput" rows="5" required></textarea>
+        <button type="submit">Create Fragment</button>
+      </form>
+      <div id="output"></div>
     </section>
   </body>
 </html>
