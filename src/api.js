@@ -1,8 +1,7 @@
 // src/api.js
 
-
 // fragments microservice API to use, defaults to localhost:8080 if not set in env
-const apiUrl = process.env.API_URL || 'http://localhost:8080';
+const apiUrl = process.env.API_URL || "http://localhost:8080";
 
 /**
  * Given an authenticated user, request all fragments for this user from the
@@ -10,9 +9,9 @@ const apiUrl = process.env.API_URL || 'http://localhost:8080';
  * to have an `idToken` attached, so we can send that along with the request.
  */
 export async function getUserFragments(user) {
-  console.log('Requesting user fragments data...');
+  console.log("Requesting user fragments data...");
   try {
-    const fragmentsUrl = new URL('/v1/fragments', apiUrl);
+    const fragmentsUrl = new URL("/v1/fragments", apiUrl);
     const res = await fetch(fragmentsUrl, {
       // Generate headers with the proper Authorization bearer token to pass.
       // We are using the `authorizationHeaders()` helper method we defined
@@ -23,28 +22,29 @@ export async function getUserFragments(user) {
       throw new Error(`${res.status} ${res.statusText}`);
     }
     const data = await res.json();
-    console.log('Successfully got user fragments data', { data });
+    console.log("Successfully got user fragments data", { data });
     return data;
   } catch (err) {
-    console.error('Unable to call GET /v1/fragment', { err });
+    console.error("Unable to call GET /v1/fragment", { err });
   }
 }
 
 export async function createFragment(user, content) {
   try {
+    const type = arguments[2] || "text/plain";
     const res = await fetch(`${apiUrl}/v1/fragments`, {
-      method: 'POST',
-      headers: user.authorizationHeaders('text/plain'),
-      body: content
+      method: "POST",
+      headers: user.authorizationHeaders(type),
+      body: content,
     });
     if (!res.ok) {
       throw new Error(`${res.status} ${res.statusText}`);
     }
-    
+
     const data = await res.json();
-    return { data, location: res.headers.get('location') };
+    return { data, location: res.headers.get("location") };
   } catch (err) {
-    console.error('Unable to create a new fragment', { err });
+    console.error("Unable to create a new fragment", { err });
     throw err;
   }
 }

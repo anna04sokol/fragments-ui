@@ -26,6 +26,12 @@
     <section hidden id="create-fragment">
       <h3>Create a New Fragment</h3>
       <form id="fragmentForm">
+        <label for="fragmentType">Fragment type:</label>
+        <select id="fragmentType">
+          <option value="text/plain">Plain Text</option>
+          <option value="text/markdown">JSON</option>
+          <option value="application/json">Markdown</option></select
+        ><br />
         <label for="fragmentInput">Enter your fragment:</label><br />
         <textarea id="fragmentInput" rows="5" required></textarea>
         <button type="submit">Create Fragment</button>
